@@ -24,7 +24,7 @@ const Header = () => {
                 <div className={darkMode ? 'toggle-Light' : 'toggle-dark'}>
                     <div className={darkMode ? 'Toglebtns' : 'Toglebtn'} onClick={changeMode}></div>
                 </div>
-                <p>Enable {darkMode ? 'Light' : 'Dark'} Mode</p>
+                <p>Enable {darkMode ? 'Dark' : 'Light'} Mode</p>
             </nav>
         </div>
     );
