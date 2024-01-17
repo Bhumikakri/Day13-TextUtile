@@ -1,5 +1,6 @@
 import React, { useReducer } from "react";
 import "./home.css";
+import { useDarkMode } from '../DarkModeContext';
 
 const initialState = {
   text: "",
@@ -10,6 +11,7 @@ const initialState = {
   },
 };
 
+
 const reducer = (state, action) => {
   switch (action.type) {
     case "SET_TEXT":
@@ -17,7 +19,7 @@ const reducer = (state, action) => {
       const wordCount = newText
         .split(/\s+/)
         .filter((word) => word !== "").length;
-      const readingTime = calculateReadingTime();
+      const readingTime =  0.008 * newText.split(/\s+/).filter((word) => word !== "").length;
       return {
         ...state,
         text: newText,
@@ -48,11 +50,9 @@ const reducer = (state, action) => {
   }
 };
 
-const calculateReadingTime = () => {
-  return 0;
-};
-
 const Home = () => {
+  const { darkMode } = useDarkMode();
+
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const handleInputChange = (e) => {
@@ -69,13 +69,16 @@ const Home = () => {
 
   return (
     <div className="Home">
+      <div className="Title">
       <h1>TextUtils - Word Counter, Character Counter, Remove Extra Space</h1>
+      </div>
       <h3>Enter Your Text Here:</h3>
       <textarea
         value={state.text}
-        cols="170"
-        rows="15"
+        cols="150"
+        rows="11"
         onChange={handleInputChange}
+        style={darkMode ?{backgroundColor:'white'}:{backgroundColor:"black",color:"white"}}
       />
       <div className="AllBtns">
         <button
@@ -83,7 +86,7 @@ const Home = () => {
           disabled={state.text.length === 0}
           style={
             state.text.length === 0
-              ? { opacity: "0.9", cursor: "not-allowed" }
+              ? { opacity: "0.3", cursor: "not-allowed" }
               : {}
           }
         >
@@ -94,7 +97,7 @@ const Home = () => {
           disabled={state.text.length === 0}
           style={
             state.text.length === 0
-              ? { opacity: "0.9", cursor: "not-allowed" }
+              ? { opacity: "0.3", cursor: "not-allowed" }
               : {}
           }
         >
@@ -105,8 +108,8 @@ const Home = () => {
           disabled={state.text.length === 0}
           style={
             state.text.length === 0
-              ? { opacity: "0.9", cursor: "not-allowed" }
-              : {}
+              ? { opacity: "0.3", cursor: "not-allowed" }
+              : {backgroundColor:"red"}
           }
         >
           Clear Text
@@ -116,8 +119,8 @@ const Home = () => {
           disabled={state.text.length === 0}
           style={
             state.text.length === 0
-              ? { opacity: "0.9", cursor: "not-allowed" }
-              : {}
+              ? { opacity: "0.3", cursor: "not-allowed" }
+              : {backgroundColor:"green"}
           }
         >
           Copy To Clipboard
@@ -127,22 +130,22 @@ const Home = () => {
           disabled={state.text.length === 0}
           style={
             state.text.length === 0
-              ? { opacity: "0.9", cursor: "not-allowed" }
+              ? { opacity: "0.3", cursor: "not-allowed" }
               : {}
           }
         >
           Remove Extra Space
         </button>
       </div>
-      <div style={{ display: "flex", flexDirection: "column" }}>
+      <div className="SumaryDtls" style={{ display: "flex", flexDirection: "column" }}>
         <h1>Summary Of Your Text</h1>
         <span>Number of words: {state.summary.numberOfWords}</span>
         <span>Number of characters: {state.summary.numberOfCharacters}</span>
         <span>Reading Time: {state.summary.readingTime}</span>
       </div>
-      <div>
+      <div className="Preview">
         <h2>Preview Document</h2>
-        <textarea value={state.text}  onChange={ForShowAlert} />
+        <textarea style={{fontSize:"1.5rem", fontWeight:"600"}} rows="6" value={state.text}  onChange={ForShowAlert} />
       </div>
     </div>
   );
