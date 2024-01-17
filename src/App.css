@@ -6,6 +6,13 @@
 }
 body{
   min-height: 100%;
-  width: 100%;
+  max-width: 100vw;
+  
+}
+.Main{
   background: linear-gradient(45deg, rgb(241, 241, 241) 50%, rgb(158, 232, 255) 50%);
+}
+.darkMain{
+  color: aliceblue;
+  background: linear-gradient(45deg, rgb(92, 88, 88) 50%, rgba(0, 0, 0, 0.932) 50%);
 }
